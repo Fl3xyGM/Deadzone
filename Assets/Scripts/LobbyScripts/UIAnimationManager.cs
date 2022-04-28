@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UIAnimationManager : MonoBehaviour {
     
-    [SerializeField] public Animator PlayAnimator, HelpAnimator, QuitAnimator, HostAnimator, JoinAnimator, BackAnimator;
+    [SerializeField] public Animator PlayAnimator, HelpAnimator, QuitAnimator, HostAnimator, JoinAnimator, BackAnimator, helpPanel;
     private bool openHelp = false, play = false;
     // UI Left
     public void UILeft() {
@@ -49,6 +49,7 @@ public class UIAnimationManager : MonoBehaviour {
             HelpAnimator.SetBool("Right", true);
             QuitAnimator.SetBool("Right", true);
             BackAnimator.SetBool("Right", true);
+            helpPanel.SetBool("active", false);
         }
     }
     public void openHelpMenu() {
@@ -61,5 +62,6 @@ public class UIAnimationManager : MonoBehaviour {
         HelpAnimator.SetBool("Left", true);
         QuitAnimator.SetBool("Left", true);
         BackAnimator.SetBool("Left", true);
+        helpPanel.SetBool("active", true);
     }
 }
