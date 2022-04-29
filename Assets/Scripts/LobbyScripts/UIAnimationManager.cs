@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIAnimationManager : MonoBehaviour {
     
-    [SerializeField] public Animator PlayAnimator, HelpAnimator, QuitAnimator, HostAnimator, JoinAnimator, BackAnimator, helpPanel;
+    [SerializeField] public Animator PlayAnimator, HelpAnimator, QuitAnimator, back2, join2, HostAnimator, JoinAnimator, BackAnimator, helpPanel;
     private bool openHelp = false, play = false;
+    public GameObject host, join, back, title;
     // UI Left
     public void UILeft() {
         play = true;
@@ -63,5 +65,19 @@ public class UIAnimationManager : MonoBehaviour {
         QuitAnimator.SetBool("Left", true);
         BackAnimator.SetBool("Left", true);
         helpPanel.SetBool("active", true);
+    }
+    public void returnToMain() {
+        if (back2.GetBool("active") == true) {
+            back2.SetBool("active", false);
+            join2.SetBool("ClientAnimation", false);
+            StartCoroutine(waitForSeconds());
+        }
+    }
+    IEnumerator waitForSeconds() {
+        yield return new WaitForSeconds(0.75f);
+        host.SetActive(true);
+        join.SetActive(true);
+        back.SetActive(true);
+        title.SetActive(true);
     }
 }

@@ -20,7 +20,7 @@ public class NobleGUIManager : MonoBehaviour
     [SerializeField] public GameObject HostButtonObject, JoinButtonObject, BackButtonObject, TitleObject;
     [SerializeField] public TextMeshProUGUI IpTextFieldPlaceHolder, IpTextFieldInput, PortTextFieldPlaceHolder, PortTextFieldInput;
     [SerializeField] public TMP_InputField IpInputField, PortInputField;
-    [SerializeField] public Animator AnimatorComponent;
+    [SerializeField] public Animator AnimatorComponent, backAnimator;
 
     // Used to determine which GUI to display
     [SerializeField] public bool isHost = false;
@@ -48,6 +48,7 @@ public class NobleGUIManager : MonoBehaviour
 
     void JoinGame() {
         AnimatorComponent.SetBool("ClientAnimation", true);
+        backAnimator.SetBool("active", true);
         HostButtonObject.SetActive(false);
         JoinButtonObject.SetActive(false);
         BackButtonObject.SetActive(false);
