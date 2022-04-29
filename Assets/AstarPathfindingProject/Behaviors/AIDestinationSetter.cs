@@ -40,7 +40,9 @@ namespace Pathfinding {
 
 		/// <summary>Updates the AI's destination every frame</summary>
 		void Update () {
-			Idle = this.gameObject.transform.Find("IdlePosition").transform;
+			if(this.gameObject.tag != "Survivor") {
+				Idle = this.gameObject.transform.Find("IdlePosition").transform;
+			}
 			CurrentPosition = transform.position;
 			GameObject[] PlayerList = GameObject.FindGameObjectsWithTag("Player");
 
@@ -57,8 +59,17 @@ namespace Pathfinding {
 
 			if(IsCloseEnough) {
 				target = PlayerList[PlayerTarget].transform;
-				MaxSpeed = 3;
+				if(tag == "Survivor") {
+					MaxSpeed = 5;
+				} else {
+					MaxSpeed = 3;
+				}
 			} else {
+				if(this.gameObject.tag == "Survivor") {
+					GetComponent<AIBase>().SetPath(null);
+					return;
+				}
+
 				if(NewIdleLocation) {
 					StartCoroutine(WaitForSeconds());
 				}
@@ -68,7 +79,7 @@ namespace Pathfinding {
 				NewIdleLocation = false;
 				yield return new WaitForSeconds(1f);
 				MaxSpeed = 1;
-				Idle.position = new Vector2(Random.Range(-2, 2), Random.Range(-2, 2));
+				Idle.position = new Vector2(Random.Range(transform.position.x-2, transform.position.x+2), Random.Range(transform.position.y-2, transform.position.y+2));
 				target = Idle;
 				NewIdleLocation = true;
 			}

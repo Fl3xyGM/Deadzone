@@ -39,7 +39,6 @@ public class enemyHealth : NetworkBehaviour
                 Destroy(bullet.gameObject);
             }
             SetHealth(currentHealth);
-            Debug.Log(currentHealth);
         }
     }
 }

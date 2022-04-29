@@ -11,6 +11,7 @@ TagManager:
   - Undefined
   - Bullet
   - PlayerHealthBar
+  - ZombieSpawn
   layers:
   - Default
   - TransparentFX
