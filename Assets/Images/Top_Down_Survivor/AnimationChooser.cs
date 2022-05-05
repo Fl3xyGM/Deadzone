@@ -16,6 +16,7 @@ public class AnimationChooser : NetworkBehaviour {
         
         if(SceneManager.GetActiveScene().name == "TestScene") {
             DoAnims = true;
+            this.GetComponent<Animator>().SetBool("DoAnims", DoAnims);
             PlayerListGame playerListGame = GameObject.Find("PlayerManager").GetComponent<PlayerListGame>();
 
             if(playerListGame.PlayerList.Count > 0 && !IsRun1) {
@@ -39,7 +40,6 @@ public class AnimationChooser : NetworkBehaviour {
                 this.GetComponent<Animator>().SetBool("Moving", Moving);
                 this.GetComponent<Animator>().SetBool("Reloading", Reloading);
                 this.GetComponent<Animator>().SetBool("Shooting", Shooting);
-                this.GetComponent<Animator>().SetBool("DoAnims", DoAnims);
             }
 
         }
