@@ -84,6 +84,7 @@ GameObject:
   - component: {fileID: 869252172039707446}
   - component: {fileID: 7301104309700417870}
   - component: {fileID: 1100399972796890817}
+  - component: {fileID: 154060311531306147}
   m_Layer: 0
   m_Name: PlayerPrefabWithAnimation
   m_TagString: Player
@@ -548,3 +549,16 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.06
   currentHealth: 100
+--- !u!114 &154060311531306147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3698615456878716264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eaac9f79a0725946a7e4e01f28db718, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menu: {fileID: 0}
