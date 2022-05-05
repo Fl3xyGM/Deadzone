@@ -29,9 +29,14 @@ public class enemyHealth : NetworkBehaviour
         if (currentHealth < 1) {
             GameObject.Find("SoundManager").GetComponent<ZombieDeathSound>().DeathSound = true;
             if(isServer) {
-                Destroy(this.gameObject);
+                StartCoroutine(DestroyAfterWait());
             }
         }
+    }
+
+    IEnumerator DestroyAfterWait() {
+        yield return new WaitForSeconds(0.3f);
+        Destroy(this.gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D bullet) {
