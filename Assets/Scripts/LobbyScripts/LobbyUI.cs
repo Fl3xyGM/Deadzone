@@ -7,8 +7,7 @@ using TMPro;
 
 public class LobbyUI : NetworkBehaviour
 {
-    public GameObject waitingForPlayer1, waitingForPlayer2, 
-    waitingForPlayer3, waitingForPlayer4, p1, p2, p3, p4, ReadyLight1, ReadyLight2, ReadyLight3, ReadyLight4;
+    public GameObject waitingForPlayer1, waitingForPlayer2, waitingForPlayer3, waitingForPlayer4, p1, p2, p3, p4, ReadyLight1, ReadyLight2, ReadyLight3, ReadyLight4, You1, You2, You3, You4;
 
     public PlayerList playerList;
     
@@ -54,6 +53,21 @@ public class LobbyUI : NetworkBehaviour
             waitingForPlayer4.SetActive(true);
             p4.SetActive(false);
             ReadyLight4.SetActive(false);
+        }
+
+        int PlayerPOS = GameObject.Find("PlayerManager").GetComponent<PlayerData>().PlayerPOS;
+
+        if(PlayerPOS == 1) {
+            You1.SetActive(true);
+        }
+        if(PlayerPOS == 2) {
+            You2.SetActive(true);
+        }
+        if(PlayerPOS == 3) {
+            You3.SetActive(true);
+        }
+        if(PlayerPOS == 4) {
+            You4.SetActive(true);
         }
         
     }

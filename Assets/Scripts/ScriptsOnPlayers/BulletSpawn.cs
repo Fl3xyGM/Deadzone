@@ -4,6 +4,7 @@ using UnityEngine;
 using Mirror;
 using NobleConnect.Mirror;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class BulletSpawn : NetworkBehaviour {
     
@@ -19,7 +20,8 @@ public class BulletSpawn : NetworkBehaviour {
     private bool IsReloading = false;
 
     void Update() {
-
+            if(SceneManager.GetActiveScene().name != "TestScene") {return;}
+            if(GetComponent<LeaveGameScript>().IsActive || GameObject.Find("SafeZone").GetComponent<gameProgression>().WinMenuTriggered) {return;}
             if(isLocalPlayer) {
 
                 if(!CanAttack && IsReloading == false) {
