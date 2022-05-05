@@ -35,7 +35,7 @@ public class enemyHealth : NetworkBehaviour
     }
 
     IEnumerator DestroyAfterWait() {
-        yield return new WaitForSeconds(0.15f);
+        yield return new WaitForSeconds(0.075f);
         Destroy(this.gameObject);
     }
 
