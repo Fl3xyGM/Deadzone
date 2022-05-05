@@ -12,6 +12,7 @@ public class gameProgression : NetworkBehaviour {
     public TextMeshProUGUI textDisplay;
     public GameObject WinMenu;
     public bool WinMenuTriggered = false;
+    private int MaxSurvivors;
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.tag == "Survivor") {
             if(isServer) {
@@ -20,9 +21,15 @@ public class gameProgression : NetworkBehaviour {
             Destroy(collision.gameObject);
         }
     }
+
+
+    void Start() {
+        MaxSurvivors = GameObject.FindGameObjectsWithTag("Survivor").Length;
+    }
+
     void Update() {
 
-        textDisplay.text = $"Survivors Rescued \n{RescuedCount} / {GameObject.FindGameObjectsWithTag("Survivor").Length}";
+        textDisplay.text = $"Survivors Rescued \n{RescuedCount} / {MaxSurvivors}";
 
         if (RescuedCount == 3) {
             WinMenu.SetActive(true);
