@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Mirror;
 
-public class AnimationChooser : MonoBehaviour {
+public class AnimationChooser : NetworkBehaviour {
 
     [SerializeField] public bool Moving = false, Reloading = false, Shooting = false, DoAnims = false;
     private PlayerManagerGame playerManagerGame;
@@ -34,10 +35,12 @@ public class AnimationChooser : MonoBehaviour {
                 IsRun4 = true;
             }
 
-            this.GetComponent<Animator>().SetBool("Moving", Moving);
-            this.GetComponent<Animator>().SetBool("Reloading", Reloading);
-            this.GetComponent<Animator>().SetBool("Shooting", Shooting);
-            this.GetComponent<Animator>().SetBool("DoAnims", DoAnims);
+            if(isLocalPlayer) {
+                this.GetComponent<Animator>().SetBool("Moving", Moving);
+                this.GetComponent<Animator>().SetBool("Reloading", Reloading);
+                this.GetComponent<Animator>().SetBool("Shooting", Shooting);
+                this.GetComponent<Animator>().SetBool("DoAnims", DoAnims);
+            }
 
         }
 
