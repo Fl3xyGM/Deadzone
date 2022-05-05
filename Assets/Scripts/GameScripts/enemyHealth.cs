@@ -27,7 +27,7 @@ public class enemyHealth : NetworkBehaviour
         SetHealth(currentHealth);
 
         if (currentHealth < 1) {
-            GameObject.Find("SoundManager").GetComponent<AudioSource>().Play();
+            GameObject.Find("SoundManager").GetComponent<ZombieDeathSound>().DeathSound = true;
             if(isServer) {
                 Destroy(this.gameObject);
             }
