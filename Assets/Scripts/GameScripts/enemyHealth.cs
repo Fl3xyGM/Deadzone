@@ -26,9 +26,11 @@ public class enemyHealth : NetworkBehaviour
 
         SetHealth(currentHealth);
 
-        if (currentHealth < 1 && isServer) {
+        if (currentHealth < 1) {
             GameObject.Find("SoundManager").GetComponent<AudioSource>().Play();
-            Destroy(this.gameObject);
+            if(isServer) {
+                Destroy(this.gameObject);
+            }
         }
     }
 

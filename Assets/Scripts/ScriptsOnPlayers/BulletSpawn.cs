@@ -61,6 +61,7 @@ public class BulletSpawn : NetworkBehaviour {
                     Vector3 BulletSpawn = playerListGame.PlayerList[playerManagerGame.PlayerPOS-1].transform.Find("ShootPoint").transform.position;
                     Quaternion Rotation = playerListGame.PlayerList[playerManagerGame.PlayerPOS-1].transform.localRotation;
                     CmdSpawnBullet(BulletSpawn, Rotation, playerManagerGame.PlayerPOS);
+                    GetComponent<AudioSource>().Play();
                     StartCoroutine(Wait1());
                 }
             }
@@ -91,10 +92,7 @@ public class BulletSpawn : NetworkBehaviour {
 
     [Command]
     public void CmdSpawnBullet(Vector3 SpawnPosition, Quaternion Rotation, int PlayerPos) {
-        GetComponent<AudioSource>().Play();
-
         PlayerListGame playerListGame = GameObject.Find("PlayerManager").GetComponent<PlayerListGame>();
-
         SpawnPosition = playerListGame.PlayerList[PlayerPos-1].transform.Find("ShootPoint").transform.position;
         Rotation = playerListGame.PlayerList[PlayerPos-1].transform.localRotation;
         GameObject Prefab = Instantiate(BulletPrefab, SpawnPosition, Rotation);
