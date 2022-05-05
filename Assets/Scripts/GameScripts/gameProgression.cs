@@ -7,12 +7,19 @@ using Mirror;
 public class gameProgression : NetworkBehaviour
 {
     private int RescuedCount = 0;
-    // public TextMeshProUGUI textDisplay;
+    public TextMeshProUGUI textDisplay;
+    public GameObject WinMenu;
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.tag == "Survivor") {
             RescuedCount += 1;
-            Destroy(GameObject.FindWithTag("Survivor"));
-            // textDisplay.text = "Survivors Rescued " + RescuedCount;
+            Destroy(collision.gameObject);
+            textDisplay.text = "Survivors Rescued " + RescuedCount;
+        }
+    }
+    void Update() {
+        if (RescuedCount == 3) {
+            WinMenu.SetActive(true);
+            // Set Player movement and game to null
         }
     }
 }
