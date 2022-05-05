@@ -22,12 +22,11 @@ public class gameProgression : NetworkBehaviour {
         }
     }
 
-
-    void Start() {
-        MaxSurvivors = GameObject.FindGameObjectsWithTag("Survivor").Length;
-    }
-
     void Update() {
+
+        if(MaxSurvivors == 0) {
+            MaxSurvivors = GameObject.FindGameObjectsWithTag("Survivor").Length;
+        }
 
         textDisplay.text = $"Survivors Rescued \n{RescuedCount} / {MaxSurvivors}";
 
