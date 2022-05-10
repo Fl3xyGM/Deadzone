@@ -67,7 +67,9 @@ public class PlayerHealth : NetworkBehaviour {
         transform.position = new Vector3(4, -90, transform.position.z);
         respawnMenu.SetActive(false);
         respawnButton.SetActive(false);
-        PlayerGettingHealed.GetComponent<PlayerHealth>().currentHealth = 100;
+        if(isServer) {
+            PlayerGettingHealed.GetComponent<PlayerHealth>().currentHealth = 100;
+        }
         IsDead = false;
         GameObject.Find("Main Camera").transform.Find("HealthBar").gameObject.SetActive(true);
         GameObject.Find("Main Camera").transform.Find("AmmoCounter").gameObject.SetActive(true);
