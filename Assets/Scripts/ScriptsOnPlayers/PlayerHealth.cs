@@ -52,9 +52,6 @@ public class PlayerHealth : NetworkBehaviour {
                 respawnButton.SetActive(true);
                 IsActive = true;
                 CountDown = false;
-            } else {
-                respawnButton.SetActive(false);
-                IsActive = false;
             }
         }
 
@@ -83,12 +80,12 @@ public class PlayerHealth : NetworkBehaviour {
         transform.position = new Vector3(4, -90, transform.position.z);
         respawnMenu.SetActive(false);
         respawnButton.SetActive(false);
-        frameCounter = 0;
         CmdHealPlayer(GameObject.Find("PlayerManager").GetComponent<PlayerManagerGame>().PlayerPOS);
         IsDead = false;
         GameObject.Find("Main Camera").transform.Find("HealthBar").gameObject.SetActive(true);
         GameObject.Find("Main Camera").transform.Find("AmmoCounter").gameObject.SetActive(true);
         GameObject.Find("Main Camera").transform.Find("SurvivorsRescued").gameObject.SetActive(true);
+        frameCounter = 0;
     }
 
     [Command]
