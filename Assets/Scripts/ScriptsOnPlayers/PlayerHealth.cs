@@ -67,13 +67,28 @@ public class PlayerHealth : NetworkBehaviour {
         transform.position = new Vector3(4, -90, transform.position.z);
         respawnMenu.SetActive(false);
         respawnButton.SetActive(false);
-        if(isServer) {
-            PlayerGettingHealed.GetComponent<PlayerHealth>().currentHealth = 100;
-        }
+        CmdHealPlayer(GameObject.Find("PlayerManager").GetComponent<PlayerManagerGame>().PlayerPOS);
         IsDead = false;
         GameObject.Find("Main Camera").transform.Find("HealthBar").gameObject.SetActive(true);
         GameObject.Find("Main Camera").transform.Find("AmmoCounter").gameObject.SetActive(true);
         GameObject.Find("Main Camera").transform.Find("SurvivorsRescued").gameObject.SetActive(true);
+    }
+
+    [Command]
+    public void CmdHealPlayer(int PlayerPOS) {
+        GameObject[] Players = GameObject.FindGameObjectsWithTag("Player");
+        if(PlayerPOS == 1) {
+            Players[0].GetComponent<PlayerHealth>().currentHealth = 100;
+        }
+        if(PlayerPOS == 2) {
+            Players[1].GetComponent<PlayerHealth>().currentHealth = 100;
+        }
+        if(PlayerPOS == 3) {
+            Players[2].GetComponent<PlayerHealth>().currentHealth = 100;
+        }
+        if(PlayerPOS == 4) {
+            Players[3].GetComponent<PlayerHealth>().currentHealth = 100;
+        }
     }
 
     public void IsAttacked(GameObject PlayerObject) {
