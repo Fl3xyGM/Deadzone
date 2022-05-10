@@ -15,9 +15,14 @@ public class AnimationChooser : NetworkBehaviour {
         animatorHolder = GameObject.Find("Animators").GetComponent<AnimatorHolder>();
         
         if(SceneManager.GetActiveScene().name == "TestScene") {
+            if(!isLocalPlayer){return;}
             DoAnims = true;
             this.GetComponent<Animator>().SetBool("DoAnims", DoAnims);
             PlayerListGame playerListGame = GameObject.Find("PlayerManager").GetComponent<PlayerListGame>();
+
+            if(playerListGame.PlayerList[0] == null) {
+                playerListGame.PlayerList[0].GetComponent<Animator>().runtimeAnimatorController = animatorHolder.Green;
+            }
 
             if(playerListGame.PlayerList.Count > 0 && !IsRun1) {
                 playerListGame.PlayerList[0].GetComponent<Animator>().runtimeAnimatorController = animatorHolder.Green;
