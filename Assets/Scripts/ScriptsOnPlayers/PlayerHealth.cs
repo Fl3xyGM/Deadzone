@@ -75,29 +75,25 @@ public class PlayerHealth : NetworkBehaviour {
     }
 
     public void IsAttacked(GameObject PlayerObject) {
-        if(isServer) {
-            Count = 0;
             GameObject[] Players = GameObject.FindGameObjectsWithTag("Player");
-
+            Count = 0;
             foreach(GameObject player in Players) {
                 Count++;
                 if(player == PlayerObject) {
-                    Players[Count-1].GetComponent<PlayerHealth>().currentHealth -= 20;
+                    if(isServer) {
+                        Players[Count-1].GetComponent<PlayerHealth>().currentHealth -= 20;
+                    }
                 }
             }
-            if (Players[Count-1].GetComponent<PlayerHealth>().currentHealth == 0) {
-                transform.position = new Vector3(-100, -80, transform.position.z);
-                respawnMenu.SetActive(true);
-                CountDown = true;
-                PlayerGettingHealed = Players[Count-1];
-                IsDead = true;
-                GameObject.Find("Main Camera").transform.Find("HealthBar").gameObject.SetActive(false);
-                GameObject.Find("Main Camera").transform.Find("AmmoCounter").gameObject.SetActive(false);
-                GameObject.Find("Main Camera").transform.Find("SurvivorsRescued").gameObject.SetActive(false);
-            }
-            // if (respawnTimer == 0) {
-            //     respawnButton.SetActive(true);
-            // }
+        if (isLocalPlayer && currentHealth <= 0) {
+            transform.position = new Vector3(-100, -80, transform.position.z);
+            respawnMenu.SetActive(true);
+            CountDown = true;
+            PlayerGettingHealed = Players[Count-1];
+            IsDead = true;
+            GameObject.Find("Main Camera").transform.Find("HealthBar").gameObject.SetActive(false);
+            GameObject.Find("Main Camera").transform.Find("AmmoCounter").gameObject.SetActive(false);
+            GameObject.Find("Main Camera").transform.Find("SurvivorsRescued").gameObject.SetActive(false);
         }
     }
 }
