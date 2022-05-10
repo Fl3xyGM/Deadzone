@@ -20,6 +20,7 @@ public class PlayerHealth : NetworkBehaviour {
     private GameObject PlayerGettingHealed;
     public bool IsDead = false;
     private bool IsActive = false;
+    private int Count2341 = 0;
 
     void Start() {
         if(SceneManager.GetActiveScene().name != "TestScene") {return;}
@@ -43,19 +44,24 @@ public class PlayerHealth : NetworkBehaviour {
         respawnText = respawnMenu.transform.Find("MenuBackground/RespawnText").GetComponent<TextMeshProUGUI>();
         respawnButtonButton.onClick.AddListener(Respawn);
         if(CountDown) {
-            if(frameCounter != 300) {
+            if(frameCounter != 301) {
                 frameCounter++;
             } 
             respawnText.text = "You can respawn in " + $"{respawnTimer}";
             respawnTimer = 5-(frameCounter/60);   
-            if(respawnTimer <= 0 && frameCounter >= 300) {
+            if(respawnTimer <= 0 && frameCounter >= 301) {
                 respawnButton.SetActive(true);
                 IsActive = true;
                 CountDown = false;
             }
         }
+        if(currentHealth > 0)  {
+            IsDead = false;
+        } else {
+            Count2341++;
+        }
 
-        if (isLocalPlayer && currentHealth <= 0) {
+        if (isLocalPlayer && currentHealth <= 0 && !IsDead && Count2341 == 10) {
             transform.position = new Vector3(-100, -80, transform.position.z);
             respawnMenu.SetActive(true);
             CountDown = true;
@@ -77,15 +83,16 @@ public class PlayerHealth : NetworkBehaviour {
         }
     }
     void Respawn() {
+        CmdHealPlayer(GameObject.Find("PlayerManager").GetComponent<PlayerManagerGame>().PlayerPOS);
         transform.position = new Vector3(4, -90, transform.position.z);
         respawnMenu.SetActive(false);
         respawnButton.SetActive(false);
-        CmdHealPlayer(GameObject.Find("PlayerManager").GetComponent<PlayerManagerGame>().PlayerPOS);
         IsDead = false;
         GameObject.Find("Main Camera").transform.Find("HealthBar").gameObject.SetActive(true);
         GameObject.Find("Main Camera").transform.Find("AmmoCounter").gameObject.SetActive(true);
         GameObject.Find("Main Camera").transform.Find("SurvivorsRescued").gameObject.SetActive(true);
         frameCounter = 0;
+        Count2341 = 0;
     }
 
     [Command]
