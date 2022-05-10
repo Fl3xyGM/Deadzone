@@ -19,6 +19,7 @@ public class PlayerHealth : NetworkBehaviour {
     private bool CountDown = false;
     private GameObject PlayerGettingHealed;
     public bool IsDead = false;
+    private bool IsActive = false;
 
     void Start() {
         if(SceneManager.GetActiveScene().name != "TestScene") {return;}
@@ -42,14 +43,29 @@ public class PlayerHealth : NetworkBehaviour {
         respawnText = respawnMenu.transform.Find("MenuBackground/RespawnText").GetComponent<TextMeshProUGUI>();
         respawnButtonButton.onClick.AddListener(Respawn);
         if(CountDown) {
-            frameCounter++;
+            if(frameCounter != 300) {
+                frameCounter++;
+            } 
             respawnText.text = "You can respawn in " + $"{respawnTimer}";
             respawnTimer = 5-(frameCounter/60);   
-            if(respawnTimer <= 0 && frameCounter > 300) {
+            if(respawnTimer <= 0 && frameCounter >= 300) {
                 respawnButton.SetActive(true);
-                frameCounter = 0;
+                IsActive = true;
                 CountDown = false;
+            } else {
+                respawnButton.SetActive(false);
+                IsActive = false;
             }
+        }
+
+        if (isLocalPlayer && currentHealth <= 0) {
+            transform.position = new Vector3(-100, -80, transform.position.z);
+            respawnMenu.SetActive(true);
+            CountDown = true;
+            IsDead = true;
+            GameObject.Find("Main Camera").transform.Find("HealthBar").gameObject.SetActive(false);
+            GameObject.Find("Main Camera").transform.Find("AmmoCounter").gameObject.SetActive(false);
+            GameObject.Find("Main Camera").transform.Find("SurvivorsRescued").gameObject.SetActive(false);
         }
         
         if(isServer) {
@@ -67,6 +83,7 @@ public class PlayerHealth : NetworkBehaviour {
         transform.position = new Vector3(4, -90, transform.position.z);
         respawnMenu.SetActive(false);
         respawnButton.SetActive(false);
+        frameCounter = 0;
         CmdHealPlayer(GameObject.Find("PlayerManager").GetComponent<PlayerManagerGame>().PlayerPOS);
         IsDead = false;
         GameObject.Find("Main Camera").transform.Find("HealthBar").gameObject.SetActive(true);
@@ -102,15 +119,5 @@ public class PlayerHealth : NetworkBehaviour {
                     }
                 }
             }
-        if (isLocalPlayer && currentHealth <= 0) {
-            transform.position = new Vector3(-100, -80, transform.position.z);
-            respawnMenu.SetActive(true);
-            CountDown = true;
-            PlayerGettingHealed = Players[Count-1];
-            IsDead = true;
-            GameObject.Find("Main Camera").transform.Find("HealthBar").gameObject.SetActive(false);
-            GameObject.Find("Main Camera").transform.Find("AmmoCounter").gameObject.SetActive(false);
-            GameObject.Find("Main Camera").transform.Find("SurvivorsRescued").gameObject.SetActive(false);
-        }
     }
 }
