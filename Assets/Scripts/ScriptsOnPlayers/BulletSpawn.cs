@@ -22,7 +22,7 @@ public class BulletSpawn : NetworkBehaviour {
     void Update() {
             if(SceneManager.GetActiveScene().name != "TestScene") {return;}
             if(GetComponent<LeaveGameScript>().IsActive || GameObject.Find("SafeZone").GetComponent<gameProgression>().WinMenuTriggered) {return;}
-            if(isLocalPlayer) {
+            if(!isLocalPlayer) {return;}
 
                 if(!CanAttack && IsReloading == false) {
                 Cooldown++;
@@ -65,10 +65,6 @@ public class BulletSpawn : NetworkBehaviour {
                     StartCoroutine(Wait1());
                 }
             }
-
-
-
-        }
     }
 
     IEnumerator Wait1() {
