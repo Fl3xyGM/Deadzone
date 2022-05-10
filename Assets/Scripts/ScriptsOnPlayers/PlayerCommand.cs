@@ -41,7 +41,7 @@ public class PlayerCommand : NetworkBehaviour {
     public void CmdUpdatePlayerList(GameObject player, int PlayerPOS) {
         if(GameObject.Find("PlayerManager").GetComponent<PlayerListGame>().PlayerList.Count < 5) {
             GameObject.Find("PlayerManager").GetComponent<PlayerListGame>().PlayerList.Add(player);
-        } else {
+        }
             if(PlayerPOS == 1) {
                 GameObject.Find("PlayerManager").GetComponent<PlayerListGame>().PlayerList[0] = player;
             }
@@ -51,17 +51,14 @@ public class PlayerCommand : NetworkBehaviour {
             }
             if(PlayerPOS == 3) {
                 GameObject.Find("PlayerManager").GetComponent<PlayerListGame>().PlayerList[2] = player;
+                GameObject.Find("PlayerManager").GetComponent<PlayerListGame>().PlayerList[0] = GameObject.Find("PlayerManager").GetComponent<PlayerListGame>().PlayerList[0];
+                GameObject.Find("PlayerManager").GetComponent<PlayerListGame>().PlayerList[1] = GameObject.Find("PlayerManager").GetComponent<PlayerListGame>().PlayerList[1];
             }
             if(PlayerPOS == 4) {
                 GameObject.Find("PlayerManager").GetComponent<PlayerListGame>().PlayerList[3] = player;
+                GameObject.Find("PlayerManager").GetComponent<PlayerListGame>().PlayerList[0] = GameObject.Find("PlayerManager").GetComponent<PlayerListGame>().PlayerList[0];
+                GameObject.Find("PlayerManager").GetComponent<PlayerListGame>().PlayerList[1] = GameObject.Find("PlayerManager").GetComponent<PlayerListGame>().PlayerList[1];
+                GameObject.Find("PlayerManager").GetComponent<PlayerListGame>().PlayerList[2] = GameObject.Find("PlayerManager").GetComponent<PlayerListGame>().PlayerList[2];
             }
         }
-
-
-
-    }
-
-
-
-
 }
