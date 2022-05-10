@@ -14,7 +14,7 @@ public class PlayerMoveSystem : NetworkBehaviour {
 
     void Update() {
         if(SceneManager.GetActiveScene().name != "TestScene") {return;}
-        if(GetComponent<LeaveGameScript>().IsActive || GameObject.Find("SafeZone").GetComponent<gameProgression>().WinMenuTriggered) {return;}
+        if(GetComponent<LeaveGameScript>().IsActive || GameObject.Find("SafeZone").GetComponent<gameProgression>().WinMenuTriggered || GetComponent<PlayerHealth>().IsDead) {return;}
         if(!isLocalPlayer) {return;}
 
         float h = Input.GetAxisRaw("Horizontal");

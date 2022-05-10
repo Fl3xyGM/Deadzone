@@ -21,7 +21,10 @@ public class BulletSpawn : NetworkBehaviour {
 
     void Update() {
             if(SceneManager.GetActiveScene().name != "TestScene") {return;}
-            if(GetComponent<LeaveGameScript>().IsActive || GameObject.Find("SafeZone").GetComponent<gameProgression>().WinMenuTriggered) {return;}
+            if(GetComponent<PlayerHealth>().IsDead) {
+                CurrentBullets = 10;
+            }
+            if(GetComponent<LeaveGameScript>().IsActive || GameObject.Find("SafeZone").GetComponent<gameProgression>().WinMenuTriggered || GetComponent<PlayerHealth>().IsDead) {return;}
             if(!isLocalPlayer) {return;}
 
                 if(!CanAttack && IsReloading == false) {
