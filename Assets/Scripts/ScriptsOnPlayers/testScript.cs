@@ -18,16 +18,15 @@ public class testScript : NetworkBehaviour {
     }
 
     void Count() {
-        if(isLocalPlayer) {
-            if(ReadyButtonText.text == "<color=green>Ready</color>") {
-                int Playerpos = GameObject.Find("PlayerManager").GetComponent<PlayerData>().PlayerPOS;
-                CmdCountUp(GameObject.Find("GameControllerTest"), GameObject.Find("ReadyManager"), Playerpos);
-                ReadyButtonText.text = "<color=red>Cancel</color>";
-            } else if(ReadyButtonText.text == "<color=red>Cancel</color>") {
-                int Playerpos = GameObject.Find("PlayerManager").GetComponent<PlayerData>().PlayerPOS;
-                CmdCountDown(GameObject.Find("GameControllerTest"), GameObject.Find("ReadyManager"), Playerpos);
-                ReadyButtonText.text = "<color=green>Ready</color>";
-            }
+        if(!isLocalPlayer) {return;}
+        if(ReadyButtonText.text == "<color=green>Ready</color>") {
+            int Playerpos = GameObject.Find("PlayerManager").GetComponent<PlayerData>().PlayerPOS;
+            CmdCountUp(GameObject.Find("GameControllerTest"), GameObject.Find("ReadyManager"), Playerpos);
+            ReadyButtonText.text = "<color=red>Cancel</color>";
+        } else if(ReadyButtonText.text == "<color=red>Cancel</color>") {
+            int Playerpos = GameObject.Find("PlayerManager").GetComponent<PlayerData>().PlayerPOS;
+            CmdCountDown(GameObject.Find("GameControllerTest"), GameObject.Find("ReadyManager"), Playerpos);
+            ReadyButtonText.text = "<color=green>Ready</color>";
         }
     }
 

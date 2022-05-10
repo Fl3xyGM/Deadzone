@@ -25,7 +25,7 @@ public class UIAnimationManager : MonoBehaviour {
         BackAnimator.SetBool("Right", false);
     }
 
-    // UI Left
+    // UI Right
     public void UIRight() {
         if (play == true) {
             PlayAnimator.SetBool("Left", false);
