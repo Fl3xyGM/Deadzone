@@ -12,6 +12,9 @@ TagManager:
   - Bullet
   - PlayerHealthBar
   - ZombieSpawn
+  - Lamp
+  - RespawnMenu
+  - RespawnButton
   layers:
   - Default
   - TransparentFX
