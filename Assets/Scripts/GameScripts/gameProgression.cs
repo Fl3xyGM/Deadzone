@@ -24,13 +24,12 @@ public class gameProgression : NetworkBehaviour {
 
     void Update() {
 
-        if(MaxSurvivors == 0) {
-            MaxSurvivors = GameObject.FindGameObjectsWithTag("Survivor").Length;
-        }
+        MaxSurvivors = GameObject.FindGameObjectsWithTag("Player").Length*3;
+        
 
         textDisplay.text = $"Survivors Rescued \n{RescuedCount} / {MaxSurvivors}";
 
-        if (RescuedCount == 3) {
+        if (RescuedCount == MaxSurvivors) {
             WinMenu.SetActive(true);
             WinMenuTriggered = true;
         }
